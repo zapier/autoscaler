@@ -1147,7 +1147,6 @@ func drainNode(node *apiv1.Node, pods []*apiv1.Pod, client kube_client.Interface
 		if allGone {
 			klog.V(1).Infof("All pods removed from %s", node.Name)
 			// Let the deferred function know there is no need for cleanup
-
 			return evictionResults, nil
 		}
 	}

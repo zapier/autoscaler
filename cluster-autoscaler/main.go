@@ -240,7 +240,7 @@ func createAutoscalingOptions() config.AutoscalingOptions {
 		IgnoredTaints:                       *ignoreTaintsFlag,
 		NodeDeletionDelayTimeout:            *nodeDeletionDelayTimeout,
 		AWSUseStaticInstanceList:            *awsUseStaticInstanceList,
-		NodeTerminationDelaySec:		   	 *nodeTerminationDelaySec,
+		NodeTerminationDelaySec:             *nodeTerminationDelaySec,
 	}
 }
 
