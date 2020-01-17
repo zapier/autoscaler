@@ -172,6 +172,7 @@ var (
 
 	ignoreTaintsFlag         = multiStringFlag("ignore-taint", "Specifies a taint to ignore in node templates when considering to scale a node group")
 	awsUseStaticInstanceList = flag.Bool("aws-use-static-instance-list", false, "Should CA fetch instance types in runtime or use a static list. AWS only")
+	nodeTerminationDelaySec  = flag.Int("node-termination-delay", 0, "Delay termination of a node for this amount of seconds")
 )
 
 func createAutoscalingOptions() config.AutoscalingOptions {
@@ -239,6 +240,7 @@ func createAutoscalingOptions() config.AutoscalingOptions {
 		IgnoredTaints:                       *ignoreTaintsFlag,
 		NodeDeletionDelayTimeout:            *nodeDeletionDelayTimeout,
 		AWSUseStaticInstanceList:            *awsUseStaticInstanceList,
+		NodeTerminationDelaySec:		   	 *nodeTerminationDelaySec,
 	}
 }
 

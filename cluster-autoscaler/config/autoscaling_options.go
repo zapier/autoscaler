@@ -141,4 +141,6 @@ type AutoscalingOptions struct {
 	IgnoredTaints []string
 	// AWSUseStaticInstanceList tells if AWS cloud provider use static instance type list or dynamically fetch from remote APIs.
 	AWSUseStaticInstanceList bool
+	// NodeTerminationDelay delays the termination of a node for N seconds
+	NodeTerminationDelaySec int
 }
