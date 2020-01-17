@@ -662,7 +662,7 @@ func TestDrainNode(t *testing.T) {
 		deletedPods <- eviction.Name
 		return true, nil, nil
 	})
-	_, err := drainNode(n1, []*apiv1.Pod{p1, p2}, fakeClient, kube_util.CreateEventRecorder(fakeClient),20, 0, 5*time.Second, 0*time.Second, PodEvictionHeadroom)
+	_, err := drainNode(n1, []*apiv1.Pod{p1, p2}, fakeClient, kube_util.CreateEventRecorder(fakeClient), 20, 5*time.Second, 0*time.Second, PodEvictionHeadroom)
 	assert.NoError(t, err)
 	deleted := make([]string, 0)
 	deleted = append(deleted, utils.GetStringFromChan(deletedPods))
@@ -705,7 +705,7 @@ func TestDrainNodeWithRescheduled(t *testing.T) {
 		deletedPods <- eviction.Name
 		return true, nil, nil
 	})
-	_, err := drainNode(n1, []*apiv1.Pod{p1, p2}, fakeClient, kube_util.CreateEventRecorder(fakeClient), 20, 0, 5*time.Second, 0*time.Second, PodEvictionHeadroom)
+	_, err := drainNode(n1, []*apiv1.Pod{p1, p2}, fakeClient, kube_util.CreateEventRecorder(fakeClient), 20, 5*time.Second, 0*time.Second, PodEvictionHeadroom)
 	assert.NoError(t, err)
 	deleted := make([]string, 0)
 	deleted = append(deleted, utils.GetStringFromChan(deletedPods))
@@ -754,7 +754,7 @@ func TestDrainNodeWithRetries(t *testing.T) {
 			return true, nil, fmt.Errorf("too many concurrent evictions")
 		}
 	})
-	_, err := drainNode(n1, []*apiv1.Pod{p1, p2, p3}, fakeClient, kube_util.CreateEventRecorder(fakeClient), 20, 0, 5*time.Second, 0*time.Second, PodEvictionHeadroom)
+	_, err := drainNode(n1, []*apiv1.Pod{p1, p2, p3}, fakeClient, kube_util.CreateEventRecorder(fakeClient), 20, 5*time.Second, 0*time.Second, PodEvictionHeadroom)
 	assert.NoError(t, err)
 	deleted := make([]string, 0)
 	deleted = append(deleted, utils.GetStringFromChan(deletedPods))
@@ -797,7 +797,7 @@ func TestDrainNodeEvictionFailure(t *testing.T) {
 		return true, nil, nil
 	})
 
-	evictionResults, err := drainNode(n1, []*apiv1.Pod{p1, p2, p3, p4}, fakeClient, kube_util.CreateEventRecorder(fakeClient), 20, 0, 0*time.Second, 0*time.Second, PodEvictionHeadroom)
+	evictionResults, err := drainNode(n1, []*apiv1.Pod{p1, p2, p3, p4}, fakeClient, kube_util.CreateEventRecorder(fakeClient), 20, 0*time.Second, 0*time.Second, PodEvictionHeadroom)
 	assert.Error(t, err)
 	assert.Equal(t, 4, len(evictionResults))
 	assert.Equal(t, *p1, *evictionResults["p1"].Pod)
@@ -846,7 +846,7 @@ func TestDrainNodeDisappearanceFailure(t *testing.T) {
 		return true, nil, nil
 	})
 
-	evictionResults, err := drainNode(n1, []*apiv1.Pod{p1, p2, p3, p4}, fakeClient, kube_util.CreateEventRecorder(fakeClient), 0, 0, 0*time.Second, 0*time.Second, 0*time.Second)
+	evictionResults, err := drainNode(n1, []*apiv1.Pod{p1, p2, p3, p4}, fakeClient, kube_util.CreateEventRecorder(fakeClient), 0, 0*time.Second, 0*time.Second, 0*time.Second)
 	assert.Error(t, err)
 	assert.Equal(t, 4, len(evictionResults))
 	assert.Equal(t, *p1, *evictionResults["p1"].Pod)
